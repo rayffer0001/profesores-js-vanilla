@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="es-CO">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profesores</title>
 </head>
+
 <body>
-    <header class = "my-3">
+    <header class="my-3">
         <h1 class="text-center">Profesores</h1>
     </header>
 
-    <main class = "container">
+    <main class="container">
         <section class="row text-center">
             <article class="col-xs-12 col-md-6">
                 image
@@ -22,54 +24,56 @@
         </section>
 
 
-        <section class="row">
+        <section class="row text-center">
             <div class="col-12">
-                <table class="table table-hover">
-                    <caption>
-                        Registros de los profesores
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                Id de profesor
-                            </th>
-                            <th scope="col">
-                                Nombre
-                            </th>
-                            <th scope="col">
-                                Descripcion
-                            </th>
-                            <th scope="col">
-                                Correo
-                            </th>
-                            <th scope="col">
-                                Fecha de nacimiento
-                            </th>
-                            <th scope="col">
-                                Opciones
-                            </th>
-                        </tr>
-                    </thead>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <caption>
+                            Registros de los profesores
+                        </caption>
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">
+                                    Id de profesor
+                                </th>
+                                <th scope="col">
+                                    Nombre
+                                </th>
+                                <th scope="col">
+                                    Descripcion
+                                </th>
+                                <th scope="col">
+                                    Correo
+                                </th>
+                                <th scope="col">
+                                    Fecha de nacimiento
+                                </th>
+                                <th scope="col">
+                                    Opciones
+                                </th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>102030</td>
-                            <td>Rayffer</td>
-                            <td>Da clases de front en la UPB</td>
-                            <td>yeg.com</td>
-                            <td>05-07-1993</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">
-                                    <em class="fa fa-pencil"></em> Editar
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                    <em class="fa fa-trash"></em> Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+                        <tbody>
+                            <tr class="align-middle text-center">
+                                <td>102030</td>
+                                <td>Rayffer</td>
+                                <td>Da clases de front en la UPB</td>
+                                <td>yeg.com</td>
+                                <td>05-07-1993</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" title="Editar">
+                                        <em class="fa fa-pencil"></em> 
+                                    </button>
+                                    <button type="button" class="btn btn-danger" title="Eliminar">
+                                        <em class="fa fa-trash"></em> 
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
 
-                </table>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -79,4 +83,5 @@
         Derechos reservados de autor <em class="fa-regular fa-copyright"></em>
     </footer>
 </body>
+
 </html>
