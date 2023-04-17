@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // Nos permite copiar archivos de una ruta a otra
-const CopyWebpackPlugin = require('copy-webpack-plugin');//coge archivos staticos como imagenes y lo usa para el proyecto
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
@@ -41,14 +41,13 @@ module.exports = (env, argv) => {
                     }
                 },
                 {
-                    test: /\.(png|jpg|jpeg|gif|svg)$/
+                    test: /\.(png|jpg|jpeg|gif|svg)$/,
                     use: [
                         {
                             loader: 'url-loader',
                             options: {
                                 limit: 8192,
                                 name: 'assets/img/[name].[ext]'
-
                             }
                         }
                     ]
@@ -66,11 +65,10 @@ module.exports = (env, argv) => {
                 patterns: [
                     {
                         from: './src/assets/img',
-                        to: 'assets.img'
+                        to: 'assets/img'
                     }
                 ]
             })
-
         ],
         devServer: {
             static: {
@@ -84,3 +82,11 @@ module.exports = (env, argv) => {
         }
     };
 }
+
+
+
+//DOM que es dentro de webpages
+//xpath
+//css selector 
+// $$(".btn")
+//Cypress - mocca - webdriver io - mocca y chai
