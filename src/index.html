@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesores</title>
+    <title>Teachers</title>
 </head>
 
 <body>
     <header class="my-3">
-        <h1 class="text-center">Profesores</h1>
+        <h1 class="text-center">Teachers</h1>
     </header>
 
     <main class="container">
@@ -20,8 +20,27 @@
             </article>
             <article class="col-xs-12 col-md-6">
                 
-                <form>
-                    <input type="text" id="txtName" name="txtName" placeholder="Nombre">
+                <form class="form-floating" id="teacherForm">
+                    <div class="form-floating mb-3">
+                        
+                        <input type="text" id="txtName" name="txtName" class="form-control" placeholder="Ejem: Rayffer">
+                        <label for="txtName">Name</label>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        
+                        <textarea name="txtDescription" id="txtDescription" cols="30" rows="10" class="form-control"></textarea> 
+                        <label for="txtDescription">Description</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        
+                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="Ejem: Example@gmail.com">
+                        <label for="txtEmail">Email Address</label>
+
+                    </div>
+                    
                 </form>
 
             </article>
@@ -33,27 +52,27 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <caption>
-                            Registros de los profesores
+                            Teachers registration
                         </caption>
-                        <thead>
+                        <thead class="text-center">
                             <tr class="table-dark">
                                 <th scope="col">
-                                    Id de profesor
+                                    Teacher Id
                                 </th>
                                 <th scope="col">
-                                    Nombre
+                                    Name
                                 </th>
                                 <th scope="col">
-                                    Descripcion
+                                    Description
                                 </th>
                                 <th scope="col">
-                                    Correo
+                                    Email Address
                                 </th>
                                 <th scope="col">
-                                    Fecha de nacimiento
+                                    Date of Birth
                                 </th>
                                 <th scope="col">
-                                    Opciones
+                                    Options
                                 </th>
                             </tr>
                         </thead>
@@ -84,7 +103,7 @@
     </main>
 
     <footer>
-        Derechos reservados de autor <em class="fa-regular fa-copyright"></em>
+        Copy Right <em class="fa-regular fa-copyright"></em>
     </footer>
 </body>
 
