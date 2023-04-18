@@ -1,3 +1,5 @@
+//Estilos genericos
+
 //funciona como un tree checkeable 
 //importar la libreria boostrap
 
