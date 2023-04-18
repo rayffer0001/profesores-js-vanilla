@@ -20,10 +20,10 @@
             </article>
             <article class="col-xs-12 col-md-6">
                 
-                <form class="form-floating" id="teacherForm">
+                <form novalidate class="form-floating" id="teacherForm">
                     <div class="form-floating mb-3">
                         
-                        <input type="text" id="txtName" name="txtName" class="form-control" placeholder="Ejem: Rayffer">
+                        <input type="text" id="txtName" name="txtName" class="form-control" placeholder="i.e: Rayffer">
                         <label for="txtName">Name</label>
 
                     </div>
@@ -36,10 +36,28 @@
 
                     <div class="form-floating mb-3">
                         
-                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="Ejem: Example@gmail.com">
+                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="i.e: Example@gmail.com">
                         <label for="txtEmail">Email Address</label>
 
                     </div>
+
+                    <div class="form-floating mb-3">
+                        
+                        <input type="date" id="birthDate" name="birthDate" class="form-control" placeholder="i.e: 05/07/2023">
+                        <label for="birthDate">Birth Date</label>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="d-grid col-md-6">
+                            <button type="reset" id="btnCancel" class="btn btn-secondary">Cancel</button>
+                        </div>
+                        <div class="d-grid col-md-6">
+                            <button type="submit" id="btnSubmit" class="btn btn-success">Send</button>
+                        </div>
+                    </div>
+
+
                     
                 </form>
 
