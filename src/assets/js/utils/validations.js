@@ -1,0 +1,1 @@
+//It does the validations with js
