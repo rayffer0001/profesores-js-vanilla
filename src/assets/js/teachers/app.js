@@ -1,7 +1,7 @@
 //Orchastrate all these 3 files
 
-import { addEventListeners } from './operations';
+import { listeners } from './operations';
 
 export function initializeApp() {
-    addEventListeners();
+    listeners();
 }
