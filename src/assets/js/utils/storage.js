@@ -16,7 +16,7 @@ export function getDatabase(dbName) {
 }
 
 export function setDatabase(dbName, jsonData){
-    localStorage.setItem('dbName', JSON.stringify(jsonData));
+    localStorage.setItem(dbName, JSON.stringify(jsonData));
 
 }
 
