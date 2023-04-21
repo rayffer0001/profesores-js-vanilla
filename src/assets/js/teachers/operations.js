@@ -4,7 +4,10 @@
 //it can be a document like document or for the tab is a 'window' 
 //por dentro del window esta el document(html)
 
-import { formElements, getFormData } from "./form";
+import alertify from "alertifyjs";
+
+
+import { formElements, getFormData, resetForm } from "./form";
 import { createTeacher, readTeachers } from './repository';
 
 export function listeners() {
@@ -22,6 +25,8 @@ function listenFormSubmitEvent() {
     formElements.form.addEventListener('submit', (event) => {
         event.preventDefault();
         createTeacher(getFormData());
+        resetForm();
+        alertify.success('Teacher created successfully');
         listTeacher();
     })
 }
