@@ -4,11 +4,19 @@
 //it can be a document like document or for the tab is a 'window' 
 //por dentro del window esta el document(html)
 
+
+//Third libraries
 import alertify from "alertifyjs";
 
+//Own libraries
+import { validateForm, validationForm } from './../utils/validations'
 
-import { formElements, getFormData, resetForm } from "./form";
+//Module libraries
+import { formElements, fieldConfigurations, getFormData, resetForm } from "./form";
 import { createTeacher, readTeachers } from './repository';
+
+
+
 
 export function listeners() {
     //(nombre del evento, funcion)
@@ -18,16 +26,23 @@ export function listeners() {
         listenFormSubmitEvent();
         listTeacher();
 
-    })
+    });
 }
 
 function listenFormSubmitEvent() {
     formElements.form.addEventListener('submit', (event) => {
         event.preventDefault();
-        createTeacher(getFormData());
-        resetForm();
-        alertify.success('Teacher created successfully');
-        listTeacher();
+
+        if (validateForm(fieldConfigurations)) {
+            createTeacher(getFormData());
+            resetForm();
+            alertify.success('Teacher created successfully');
+            listTeacher();
+        }else{
+            alertify.error('Check the form data!');
+        }
+
+
     })
 }
 
@@ -115,7 +130,7 @@ function listTeacher() {
         colEmpty.textContent = 'Not records saved';
         colEmpty.classList.add('text-center');
         rowEmpty.appendChild(colEmpty);
-        
+
         tbody.appendChild(rowEmpty);
 
     }
