@@ -62,8 +62,16 @@ export const fieldConfigurations = [
                     return value.trim() !== '';
                 }
 
+            },
+            {
+                errorId: `${formElements.fields.email.id}Pattern`,//template literals
+                errorMessage: "Please write a valid email. i.e. example@domain.com",
+                validationFunction: (value) => {
+                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+                }
             }
         ]
+
     },
     {
         input: formElements.fields.birthDate,
