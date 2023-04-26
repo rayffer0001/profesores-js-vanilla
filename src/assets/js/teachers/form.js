@@ -50,6 +50,36 @@ export const fieldConfigurations = [
             }
         ]
     },
+    {
+        input: formElements.fields.email,
+        validations: [
+            {
+                errorId: `${formElements.fields.email.id}Required`,//template literals
+                errorMessage: 'Email is mandatory',
+                //Las validaciones retornaran un false cuando debe mostrar el mensaje de error
+                //y un true cuando no debe mostrarlo
+                validationFunction: (value) => {
+                    return value.trim() !== '';
+                }
+
+            }
+        ]
+    },
+    {
+        input: formElements.fields.birthDate,
+        validations: [
+            {
+                errorId: `${formElements.fields.birthDate.id}Required`,//template literals
+                errorMessage: 'BirthDate is mandatory',
+                //Las validaciones retornaran un false cuando debe mostrar el mensaje de error
+                //y un true cuando no debe mostrarlo
+                validationFunction: (value) => {
+                    return value.trim() !== '';
+                }
+
+            }
+        ]
+    },
 ];
 
 export function getFormData() {

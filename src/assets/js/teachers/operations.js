@@ -9,7 +9,7 @@
 import alertify from "alertifyjs";
 
 //Own libraries
-import { validateForm, validationForm } from './../utils/validations'
+import { validateForm, validateField, removeInputErrorMessage, removeErrorClassNameFields, removeErrorMessageElements } from './../utils/validations'
 
 //Module libraries
 import { formElements, fieldConfigurations, getFormData, resetForm } from "./form";
@@ -25,6 +25,8 @@ export function listeners() {
         //event when submitting the form
         listenFormSubmitEvent();
         listTeacher();
+        listenFormFieldsChangeEvent();
+        listenFormResetEvent();
 
     });
 }
@@ -32,13 +34,16 @@ export function listeners() {
 function listenFormSubmitEvent() {
     formElements.form.addEventListener('submit', (event) => {
         event.preventDefault();
+        alertify.dismissAll();
 
         if (validateForm(fieldConfigurations)) {
             createTeacher(getFormData());
             resetForm();
+            removeErrorClassNameFields('is-valid');
             alertify.success('Teacher created successfully');
             listTeacher();
-        }else{
+
+        } else {
             alertify.error('Check the form data!');
         }
 
@@ -137,4 +142,26 @@ function listTeacher() {
 
 
 
+}
+
+
+function listenFormFieldsChangeEvent() {
+
+    fieldConfigurations.forEach(({ input, validations }) => {
+        input.addEventListener('change', () => {
+            removeInputErrorMessage(input);
+            validations.forEach((validationConfig) => {
+                validateField(input, validationConfig);
+            });
+        })
+    });
+}
+
+function listenFormResetEvent(){
+    formElements.form.addEventListener('reset', () => {
+        removeErrorMessageElements();
+        removeErrorClassNameFields('is-valid');
+        resetForm();
+        alertify.dismissAll();
+    })
 }

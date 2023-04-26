@@ -1,6 +1,8 @@
 //It does the validations with js
 export function validateForm(fieldConfigurations) {
     let isValid = true;
+    removeErrorMessageElements();
+
     fieldConfigurations.forEach(fieldConfig => {
         fieldConfig.validations.forEach((validationConfig) => {
             const currentFieldIsValid = validateField(fieldConfig.input, validationConfig);
@@ -10,7 +12,7 @@ export function validateForm(fieldConfigurations) {
     return isValid;
 }
 
-function validateField(input, validationConfig) {
+export function validateField(input, validationConfig) {
     const { errorId, errorMessage, validationFunction } = validationConfig;
     const fieldIsValid = validationFunction(input.value);
 
@@ -20,7 +22,7 @@ function validateField(input, validationConfig) {
         input.classList.add('is-invalid');
         const errorMessageElement = createErrorMessageElement(errorId, errorMessage);
         input.insertAdjacentElement('afterend', errorMessageElement);
-    }else{
+    } else {
         input.classList.add('is-valid');
     }
     return fieldIsValid;
@@ -35,16 +37,44 @@ function validateField(input, validationConfig) {
  */
 function createErrorMessageElement(errorId, errorMessage) {
     const errorMessageElement = document.createElement('div');
-    errorMessageElement.classList.add('Invalid-feedback');
+    errorMessageElement.classList.add('invalid-feedback', 'text-start');
     errorMessageElement.setAttribute('id', errorId);
     errorMessageElement.textContent = errorMessage;
     return errorMessageElement;
 }
 
-function removeErrorMessageElements() {
-
+export function removeErrorMessageElements() {
+    const errorMessageElements = document.querySelectorAll('.invalid-feedback');
+    errorMessageElements.forEach((element) => {
+        element.remove();
+    });
+    removeErrorClassNameFields('is-invalid');
 }
 
-function removeInputErrorMessage(input) {
+export function removeErrorClassNameFields(className) {
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach((input) => {
+        input.classList.remove(className);
+    });
+}
+
+
+/**
+ * Elimina todos los elementos de mensaje de error asociados a un input,
+ * y restablece su estado visual (elimina la clase is-invalid que coloca el borde rojo).
+ * La funcion sigue eliminando los elementos de mensaje de error que son adyacentes (hermanos)
+ * mientras se encuentre la clase .invalid-feedback
+ * @param {HTMLInputElement} input - El campo para el cual se eliminaran los mensajes de error
+ */
+
+
+export function removeInputErrorMessage(input) {
+
+    let errorMessageElement = input.nextElementSibling;
+    while (errorMessageElement && errorMessageElement.classList.contains('invalid-feedback')) {
+        errorMessageElement.remove();
+        input.classList.remove('is-invalid');
+        errorMessageElement = input.nextElementSibling;
+    }
 
 }

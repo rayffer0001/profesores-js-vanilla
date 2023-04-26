@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('Page Elements', () => {
   it('passes', () => {
     cy.visit('http://localhost:8080/');
     cy.get('article').should('have.length', 2);
@@ -8,4 +8,6 @@ describe('template spec', () => {
     cy.get('table').should('have.length', 1);
   });
 });
+
+
 
