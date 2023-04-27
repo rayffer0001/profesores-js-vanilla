@@ -7,13 +7,14 @@
 
 //Third libraries
 import alertify from "alertifyjs";
+import swal from 'sweetalert2';
 
 //Own libraries
 import { validateForm, validateField, removeInputErrorMessage, removeErrorClassNameFields, removeErrorMessageElements } from './../utils/validations'
 
 //Module libraries
-import { formElements, fieldConfigurations, getFormData, resetForm } from "./form";
-import { createTeacher, readTeachers } from './repository';
+import { formElements, fieldConfigurations, getFormData, resetForm, setFormData } from "./form";
+import { createTeacher, readTeachers, findTeacherById } from './repository';
 
 
 
@@ -27,6 +28,7 @@ export function listeners() {
         listTeacher();
         listenFormFieldsChangeEvent();
         listenFormResetEvent();
+        listenTableClickEvent();
 
     });
 }
@@ -97,6 +99,7 @@ function listTeacher() {
 
             const editIcon = document.createElement('em');
             editIcon.classList.add('fa', 'fa-pencil');
+            editIcon.dataset.id = id;
             editButton.appendChild(editIcon);
 
             colButtons.appendChild(editButton);
@@ -109,6 +112,7 @@ function listTeacher() {
 
             const deleteIcon = document.createElement('em');
             deleteIcon.classList.add('fa', 'fa-trash');
+            deleteIcon.dataset.id = id;
             deleteButton.appendChild(deleteIcon);
 
             colButtons.appendChild(deleteButton);
@@ -164,4 +168,55 @@ function listenFormResetEvent(){
         resetForm();
         alertify.dismissAll();
     })
+}
+
+function listenTableClickEvent(){
+    const table = document.getElementById('tblTeachers');
+    table.addEventListener('click', ({target}) => {
+        console.log(target);
+        
+        const idTeacher = target.getAttribute('data-id');
+        
+        if (target.classList.contains('btn-edit') || target.classList.contains('fa-pencil')){
+            console.log('edit');
+
+            editTeacher(idTeacher);
+
+
+
+
+        }else if(target.classList.contains('btn-delete') || target.classList.contains('fa-trash')){
+            console.log('delete');
+
+            swal.fire({
+                title: 'Are you sure you want to delele the teacher: ?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#b2b2b2',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'close'
+            }).then ((resultConfirm) => {
+                if(resultConfirm.isConfirmed){
+                    console.log('confirmar que elimina');
+                }else{
+                    alertify.dismissAll();
+                    alertify.message('Cancelled action');
+                }
+            })
+        }
+
+    });
+}
+
+function editTeacher(idTeacher){
+    const teacher = findTeacherById(idTeacher);
+
+    if (teacher){
+        setFormData(teacher);
+        window.scrollTo({ top:0, behavior: 'smooth' });
+    }else{
+        alertify.error('The teacher does not exist, please create a new teacher')
+    }
 }
