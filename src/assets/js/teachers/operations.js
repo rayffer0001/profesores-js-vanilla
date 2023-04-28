@@ -14,7 +14,7 @@ import { validateForm, validateField, removeInputErrorMessage, removeErrorClassN
 
 //Module libraries
 import { formElements, fieldConfigurations, getFormData, resetForm, setFormData } from "./form";
-import { createTeacher, readTeachers, findTeacherById } from './repository';
+import { createTeacher, readTeachers, findTeacherById, updateTeacher, deleteTeacher } from './repository';
 
 
 
@@ -39,10 +39,19 @@ function listenFormSubmitEvent() {
         alertify.dismissAll();
 
         if (validateForm(fieldConfigurations)) {
-            createTeacher(getFormData());
+            const teacher = getFormData();
+            const idTeacher = formElements.fields.id.value.trim();
+            if(idTeacher){
+                updateTeacher(teacher);
+            }else{
+                
+                createTeacher(teacher);
+            }
+
+            
             resetForm();
             removeErrorClassNameFields('is-valid');
-            alertify.success('Teacher created successfully');
+            alertify.success(`Teacher ${idTeacher ? 'Updated' : 'created'} successfully`);
             listTeacher();
 
         } else {
@@ -161,7 +170,7 @@ function listenFormFieldsChangeEvent() {
     });
 }
 
-function listenFormResetEvent(){
+function listenFormResetEvent() {
     formElements.form.addEventListener('reset', () => {
         removeErrorMessageElements();
         removeErrorClassNameFields('is-valid');
@@ -170,53 +179,63 @@ function listenFormResetEvent(){
     })
 }
 
-function listenTableClickEvent(){
+function listenTableClickEvent() {
     const table = document.getElementById('tblTeachers');
-    table.addEventListener('click', ({target}) => {
+    table.addEventListener('click', ({ target }) => {
         console.log(target);
-        
+
         const idTeacher = target.getAttribute('data-id');
-        
-        if (target.classList.contains('btn-edit') || target.classList.contains('fa-pencil')){
+
+        if (target.classList.contains('btn-edit') || target.classList.contains('fa-pencil')) {
             console.log('edit');
-
             editTeacher(idTeacher);
-
-
-
-
-        }else if(target.classList.contains('btn-delete') || target.classList.contains('fa-trash')){
-            console.log('delete');
-
-            swal.fire({
-                title: 'Are you sure you want to delele the teacher: ?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#b2b2b2',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'close'
-            }).then ((resultConfirm) => {
-                if(resultConfirm.isConfirmed){
-                    console.log('confirmar que elimina');
-                }else{
-                    alertify.dismissAll();
-                    alertify.message('Cancelled action');
-                }
-            })
+        } else if (target.classList.contains('btn-delete') || target.classList.contains('fa-trash')) {
+            //console.log('delete');
+            confirmDelete(idTeacher);
         }
 
     });
 }
 
-function editTeacher(idTeacher){
-    const teacher = findTeacherById(idTeacher);
+function editTeacher(idTeacher) {
+    const teacher = findTeacherById(parseInt(idTeacher));
 
-    if (teacher){
+    if (teacher) {
         setFormData(teacher);
-        window.scrollTo({ top:0, behavior: 'smooth' });
-    }else{
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
         alertify.error('The teacher does not exist, please create a new teacher')
     }
+}
+
+function confirmDelete(idTeacher) {
+
+    const teacher = findTeacherById(parseInt(idTeacher));
+    if (teacher) {
+        swal.fire({
+            title: `Are you sure you want to delete the teacher: ${teacher.name}`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#b2b2b2',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'close'
+        }).then((resultConfirm) => {
+            if (resultConfirm.isConfirmed) {
+                //console.log('confirmar que elimina');
+                deleteTeacher(parseInt(idTeacher));
+                listTeacher();
+                alertify.success('Teacher deleted successfully')
+                dismissAll();
+            } else {
+                alertify.dismissAll();
+                alertify.message('Cancelled action');
+            }
+        });
+    } else {
+        alertify.error('The teacher does not exist, please create a new teacher')
+    }
+
+
 }
